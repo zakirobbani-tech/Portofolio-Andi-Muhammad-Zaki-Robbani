@@ -171,7 +171,7 @@
   $('lg').innerHTML=`${E(D.nick)}<i>.</i>`;$('nm').textContent=D.nick;$('bio').textContent=D.bio;$('bio2').textContent=D.bio2;
   $('av').innerHTML=D.photo?`<img src="${I(D.photo)}" alt="${E(D.name)}">`:E(D.nick[0].toUpperCase());if(D.photo)$('av').classList.add('ph');
   const A0=D.achievements[0];$('b1').innerHTML=A0?`<span>${A0.icon}</span><div><b>${E(A0.title.split('—')[0])}</b><small>${E(A0.place)}</small></div>`:'';
-  $('b2').innerHTML=`<span>🎮</span><div><b>${E(D.roles[0])}</b><small>${E(D.education.school)}</small></div>`;
+  $('b2').innerHTML=`<span>🎮</span><div><b>${E(D.roles[0])}</b><small>Ave Ludum Studio</small></div>`;
   $('sts').innerHTML=D.stats.map(s=>`<div class="st"><b data-n="${s[0]}">0</b><span>${E(s[1])}</span></div>`).join('');
   $('mq').innerHTML=[...D.skills.map(s=>s[0]),...D.tools.map(t=>t[0])].concat([...D.skills.map(s=>s[0]),...D.tools.map(t=>t[0])]).map(t=>`<span>${E(t)}</span>`).join('');
   $('ab').innerHTML=`<div class="cd rv">${D.education.logo?`<img class="lg2" src="${I(D.education.logo)}" alt="">`:''}<div class="ic">🎓</div><h3>${E(D.education.school)}</h3><p>${E(D.education.major)}<br>${E(D.education.year)}</p></div>`+D.achievements.map(a=>`<div class="cd rv">${a.img?`<img class="lg2" style="border-radius:50%" src="${I(a.img)}" alt="">`:''}<div class="ic">${a.icon}</div><h3>${E(a.title)}</h3><p>${E(a.place)}<br>${E(a.date)}</p></div>`).join('');
