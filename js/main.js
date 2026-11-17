@@ -4,7 +4,7 @@ const I=k=>k?(IMG_EXT[k]?'assets/img/'+k+'.'+IMG_EXT[k]:k):'';
 const cv=p=>I(p.img||(p.gallery||[])[0]||'');
 const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 document.title=D.name+' — Portfolio';
-$('lg').innerHTML=`${E(D.nick)}<i>.</i>`;
+$('lg').innerHTML=`<a class="lgo" href="#top" aria-label="ZR — ke atas halaman"><img src="assets/img/zr-logo.png" width="360" height="179" alt="Logo ZR"></a>`;
 const parts=D.name.split(' ');$('nm').innerHTML=`<span>${E(parts.slice(0,2).join(' '))}</span><em>${E(parts.slice(2).join(' '))}</em>`;
 $('idn').textContent=D.identity;$('bio').textContent=D.bio;$('bio2').textContent=D.bio2;
 $('av').innerHTML=`<img src="${I(D.photo)}" alt="${E(D.name)}">`;
@@ -23,7 +23,7 @@ const em=D.contact.find(c=>c[0]=='✉️');
 $('big').innerHTML=`<button class="big" id="cpb" aria-label="Salin email">${E(em[2])}</button><div class="cp" id="cp">Klik untuk menyalin email · <a href="${E(em[3])}">atau kirim langsung</a></div>`;
 $('cpb').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(em[2]).then(()=>$('cp').textContent='Email tersalin ✓').catch(()=>location.href=em[3])};
 $('ct').innerHTML=D.contact.map(c=>`<div class="cd rv"><a href="${E(c[3])}" target="_blank" rel="noopener"><div class="ic">${c[0]}</div><small>${E(c[1])}</small><b>${E(c[2])}</b></a></div>`).join('');
-$('ft').innerHTML=`© 2026 ${E(D.name)}. Terima kasih sudah berkunjung.`;
+$('ft').innerHTML=`<img class="ftlogo" src="assets/img/zr-logo.png" width="360" height="179" alt="Logo ZR" loading="lazy"><br>© 2026 ${E(D.name)}. Terima kasih sudah berkunjung.`;
 /* projects */
 const F=D.projects.filter(p=>p.featured),R=D.projects.map((p,i)=>[p,i]).filter(([p])=>!p.featured);
 $('feat').innerHTML=D.projects.map((p,i)=>[p,i]).filter(([p])=>p.featured).map(([p,i])=>`<article class="feat rv" data-i="${i}">${cv(p)?`<img src="${cv(p)}" alt="${E(p.title)} — screenshot menu utama" loading="lazy">`:''}<div class="fc"><span class="tg">Featured Project · ${E(p.cat)}</span><h3>${E(p.title)}</h3><div class="mt">${p.meta.map(x=>`<span>${E(x)}</span>`).join('')}</div><p>${E(p.desc)}</p><ul class="fl">${p.features.map(f=>`<li>${E(f)}</li>`).join('')}</ul><button class="btn o" data-v="${i}">Explore Project</button><a class="btn" href="${E(p.link)}" target="_blank" rel="noopener">Play on itch.io</a></div></article>`).join('');

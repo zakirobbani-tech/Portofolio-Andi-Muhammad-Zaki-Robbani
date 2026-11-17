@@ -78,3 +78,9 @@ footer{text-align:center;padding:100px 5vw 40px;color:var(--mut);font-size:13px}
 
 .beam{display:none}.mq{background:rgba(7,8,12,.45)!important;backdrop-filter:blur(6px)}
 #bgt{position:fixed;left:16px;bottom:16px;z-index:45;background:rgba(16,18,26,.8);color:var(--mut);border:1px solid var(--bd);border-radius:99px;padding:8px 16px;font:500 12px Inter;cursor:pointer;backdrop-filter:blur(8px);transition:.3s}#bgt:hover{color:var(--tx);border-color:var(--ac)}
+
+/* ZR logo */
+nav b a.lgo{display:block;line-height:0}nav b .lgo img{height:30px;width:auto;display:block;transition:transform .3s}nav b .lgo:hover img{transform:scale(1.06)}nav b .lgo:focus-visible{outline:2px solid var(--ac2);outline-offset:4px}
+#ld .ldlogo{width:min(300px,62vw);height:auto;display:block}
+.ftlogo{height:34px;width:auto;opacity:.85;margin-bottom:14px}
+nav a.lgo{padding:0}nav a.lgo:after{display:none}
