@@ -84,3 +84,12 @@ nav b a.lgo{display:block;line-height:0}nav b .lgo img{height:30px;width:auto;di
 #ld .ldlogo{width:min(300px,62vw);height:auto;display:block}
 .ftlogo{height:34px;width:auto;opacity:.85;margin-bottom:14px}
 nav a.lgo{padding:0}nav a.lgo:after{display:none}
+
+/* ZR / Field Notes */
+#mt{display:none;background:none;border:1px solid var(--bd);color:var(--tx);font:600 12px Inter;padding:8px 14px;border-radius:4px;cursor:pointer}
+#mt:focus-visible,nav a:focus-visible,.btn:focus-visible{outline:2px solid var(--ac2);outline-offset:3px}
+.cn{display:block}#cn{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:20px}
+.cn small{color:var(--ac);font:500 12px ui-monospace,monospace;letter-spacing:.12em}.cn dl{margin:16px 0 0;display:grid;grid-template-columns:110px 1fr;gap:8px 16px;font-size:14px}
+.cn dt{color:var(--mut);border-top:1px solid var(--bd);padding-top:8px}.cn dd{margin:0;border-top:1px solid var(--bd);padding-top:8px}
+@media(max-width:900px){#mt{display:block}nav #nv{display:none;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:0;background:rgba(7,8,12,.96);padding:8px 5vw 16px}nav.open #nv{display:flex}nav #nv a{display:block;padding:14px 0;border-bottom:1px solid var(--bd)}nav div a{display:block}.cn dl{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){.beam{animation:none}}

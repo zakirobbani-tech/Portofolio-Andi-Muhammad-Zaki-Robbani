@@ -3,10 +3,10 @@ const $=i=>document.getElementById(i),D=DATA,RM=matchMedia('(prefers-reduced-mot
 const I=k=>k?(IMG_EXT[k]?'assets/img/'+k+'.'+IMG_EXT[k]:k):'';
 const cv=p=>I(p.img||(p.gallery||[])[0]||'');
 const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-document.title=D.name+' — Portfolio';
+document.title=D.name+' — Game Producer | ZR / Field Notes';
 $('lg').innerHTML=`<a class="lgo" href="#top" aria-label="ZR — ke atas halaman"><img src="assets/img/zr-logo.png" width="360" height="179" alt="Logo ZR"></a>`;
 const parts=D.name.split(' ');$('nm').innerHTML=`<span>${E(parts.slice(0,2).join(' '))}</span><em>${E(parts.slice(2).join(' '))}</em>`;
-$('idn').textContent=D.identity;$('bio').textContent=D.bio;$('bio2').textContent=D.bio2;
+$('idn').textContent=D.identity+' — '+D.tagline;$('bio').textContent=D.bio;$('bio2').textContent=D.bio2;
 $('av').innerHTML=`<img src="${I(D.photo)}" alt="${E(D.name)}">`;
 const A0=D.achievements[0];$('b1').innerHTML=`<span style="font-size:22px">${A0.icon}</span><div><b>${E(A0.title.split('—')[0])}</b>${E(A0.place)}</div>`;
 $('sts').innerHTML=D.stats.map(s=>`<div class="st"><b data-n="${s[0]}">0</b><span>${E(s[1])}</span></div>`).join('');
@@ -14,7 +14,7 @@ const words=[...D.skills,...D.tools.map(t=>t[0])];
 $('mq').innerHTML=words.concat(words).map(t=>`<span>${E(t)}</span>`).join('');
 $('ab').innerHTML=`<div class="cd rv" style="grid-column:span 6">${D.education.logo?`<img class="lg2" src="${I(D.education.logo)}" alt="Logo ${E(D.education.school)}">`:''}<div class="ic">🎓</div><h3>${E(D.education.school)}</h3><p>${E(D.education.major)} — fokus Game<br>${E(D.education.year)}</p></div>`+
 D.achievements.map(a=>`<div class="cd rv" style="grid-column:span 6">${a.img?`<img class="lg2" style="border-radius:50%" src="${I(a.img)}" alt="Trofi">`:''}<div class="ic">${a.icon}</div><h3>${E(a.title)}</h3><p>${E(a.place)}<br>${E(a.date)}</p></div>`).join('');
-const groups=[["Design & Art",["Illustrator","2D Art"]],["3D & Motion",["3D Modeling","Video Editor"]],["Management & Communication",["Project Manager (PM)","Public Speaking"]]];
+const groups=D.skillGroups.map(g=>[g[0],g[1].slice()]);
 const known=groups.flatMap(g=>g[1]),rest=D.skills.filter(s=>!known.includes(s));if(rest.length)groups.push(["Lainnya",rest]);
 $('sk').innerHTML=groups.map(([t,l])=>`<div class="cd rv"><h3>${E(t)}</h3>${l.filter(x=>D.skills.includes(x)).map(s=>`<span class="chip">${E(s)}</span>`).join('')}</div>`).join('');
 $('tools').innerHTML=D.tools.map(t=>`<div class="tool rv">${t[1]?`<img src="${I(t[1])}" alt="" loading="lazy">`:`<u>${E(t[0][0])}</u>`}${E(t[0])}</div>`).join('');
@@ -22,17 +22,21 @@ $('tl').innerHTML=D.experience.map(e=>`<div class="cd q rv">${e.logo?`<img class
 const em=D.contact.find(c=>c[0]=='✉️');
 $('big').innerHTML=`<button class="big" id="cpb" aria-label="Salin email">${E(em[2])}</button><div class="cp" id="cp">Klik untuk menyalin email · <a href="${E(em[3])}">atau kirim langsung</a></div>`;
 $('cpb').onclick=()=>{navigator.clipboard&&navigator.clipboard.writeText(em[2]).then(()=>$('cp').textContent='Email tersalin ✓').catch(()=>location.href=em[3])};
-$('ct').innerHTML=D.contact.map(c=>`<div class="cd rv"><a href="${E(c[3])}" target="_blank" rel="noopener"><div class="ic">${c[0]}</div><small>${E(c[1])}</small><b>${E(c[2])}</b></a></div>`).join('');
+$('ct').innerHTML=D.contact.map(c=>`<div class="cd rv"><a href="${E(c[3])}" target="_blank" rel="noopener noreferrer"><div class="ic">${c[0]}</div><small>${E(c[1])}</small><b>${E(c[2])}</b></a></div>`).join('');
 $('ft').innerHTML=`<img class="ftlogo" src="assets/img/zr-logo.png" width="360" height="179" alt="Logo ZR" loading="lazy"><br>© 2026 ${E(D.name)}. Terima kasih sudah berkunjung.`;
+$('wh').innerHTML=D.capabilities.map((c,i)=>`<div class="cd rv" style="grid-column:span 6"><small>0${i+1}</small><h3>${E(c[0])}</h3><p><b>${E(c[1])}</b><br>${E(c[2])}</p></div>`).join('');
+$('cn').innerHTML=D.cases.map((c,i)=>`<article class="cd rv cn"><small>CASE NOTE 0${i+1}</small><h3>${E(c.t)}</h3><dl>${[['Context',c.ctx],['Status',c.st],['My role',c.role],['Contribution',c.act],['Evidence',c.ev],['Outcome',c.out],['Lessons',c.ls],['Credits',c.cr]].map(r=>`<dt>${r[0]}</dt><dd>${E(r[1])}</dd>`).join('')}</dl></article>`).join('');
+$('lb3').innerHTML=`<div class="cd rv" style="grid-column:span 12"><img class="lg2" src="${I('t_bl')}" alt="" loading="lazy" width="48" height="48"><h3>Blender — learning in progress</h3><p>${E(D.lab)}<br><b>Blender outputs &amp; what I learned: to be added</b> (belum ada file Blender di repo; tidak ditampilkan agar tidak mengklaim yang belum ada).</p></div>`;
+const mt=$('mt');mt.onclick=()=>{const o=document.querySelector('nav').classList.toggle('open');mt.setAttribute('aria-expanded',o);mt.setAttribute('aria-label',o?'Tutup menu':'Buka menu')};document.querySelectorAll('#nv a').forEach(a=>a.addEventListener('click',()=>{document.querySelector('nav').classList.remove('open');mt.setAttribute('aria-expanded',false)}));
 /* projects */
 const F=D.projects.filter(p=>p.featured),R=D.projects.map((p,i)=>[p,i]).filter(([p])=>!p.featured);
-$('feat').innerHTML=D.projects.map((p,i)=>[p,i]).filter(([p])=>p.featured).map(([p,i])=>`<article class="feat rv" data-i="${i}">${cv(p)?`<img src="${cv(p)}" alt="${E(p.title)} — screenshot menu utama" loading="lazy">`:''}<div class="fc"><span class="tg">Featured Project · ${E(p.cat)}</span><h3>${E(p.title)}</h3><div class="mt">${p.meta.map(x=>`<span>${E(x)}</span>`).join('')}</div><p>${E(p.desc)}</p><ul class="fl">${p.features.map(f=>`<li>${E(f)}</li>`).join('')}</ul><button class="btn o" data-v="${i}">Explore Project</button><a class="btn" href="${E(p.link)}" target="_blank" rel="noopener">Play on itch.io</a></div></article>`).join('');
+$('feat').innerHTML=D.projects.map((p,i)=>[p,i]).filter(([p])=>p.featured).map(([p,i])=>`<article class="feat rv" data-i="${i}">${cv(p)?`<img src="${cv(p)}" alt="${E(p.title)} — screenshot menu utama" loading="lazy">`:''}<div class="fc"><span class="tg">Featured Project · ${E(p.cat)}</span><h3>${E(p.title)}</h3><div class="mt">${p.meta.map(x=>`<span>${E(x)}</span>`).join('')}</div><p>${E(p.desc)}</p><ul class="fl">${p.features.map(f=>`<li>${E(f)}</li>`).join('')}</ul><button class="btn o" data-v="${i}">Explore Project</button><a class="btn" href="${E(p.link)}" target="_blank" rel="noopener noreferrer">Play on itch.io</a></div></article>`).join('');
 const cats=['Semua',...new Set(R.map(([p])=>p.cat))];
 $('tab').innerHTML=cats.map((c,i)=>`<button class="${i?'':'on'}" data-c="${E(c)}">${E(c)}</button>`).join('')+'<span class="ar"><button id="pv" aria-label="Sebelumnya">←</button><button id="nx" aria-label="Berikutnya">→</button></span>';
 function dp(c){$('pj').innerHTML=R.filter(([p])=>c=='Semua'||p.cat==c).map(([p,i])=>`<article class="cd pj rv" data-i="${i}" tabindex="0" role="button"><div class="pt">${cv(p)?`<img src="${cv(p)}" alt="${E(p.title)}" loading="lazy">`:p.icon}</div><div class="pb"><span class="tg">${E(p.cat)}</span><h3>${E(p.title)}</h3><p>${E(p.desc.slice(0,90))}…</p></div></article>`).join('');$('pj').scrollLeft=0;obs();stg()}
 $('pv').onclick=()=>$('pj').scrollBy({left:-440,behavior:'smooth'});$('nx').onclick=()=>$('pj').scrollBy({left:440,behavior:'smooth'});
 function open(i){const p=D.projects[i];
-$('mb').innerHTML=`${cv(p)?`<div class="pt" style="height:240px"><img src="${cv(p)}" alt="${E(p.title)}"></div>`:''}<div class="pb"><button class="x" id="xx" aria-label="Tutup">✕</button><span class="tg">${E(p.cat)}${p.tools?' · '+E(p.tools):''}</span><h3>${E(p.title)}</h3>${p.meta?`<div class="mt">${p.meta.map(m=>`<span>${E(m)}</span>`).join('')}</div>`:''}<p style="color:var(--mut)">${E(p.desc)}</p>${p.features?`<ul>${p.features.map(f=>`<li>${E(f)}</li>`).join('')}</ul>`:''}${p.link?`<a class="btn" href="${E(p.link)}" target="_blank" rel="noopener">Play on itch.io</a>`:''}</div>${(p.gallery||[]).length>1?`<div class="gl">${p.gallery.slice(1).map(g=>`<img src="${I(g)}" alt="" loading="lazy">`).join('')}</div>`:''}`;
+$('mb').innerHTML=`${cv(p)?`<div class="pt" style="height:240px"><img src="${cv(p)}" alt="${E(p.title)}"></div>`:''}<div class="pb"><button class="x" id="xx" aria-label="Tutup">✕</button><span class="tg">${E(p.cat)}${p.tools?' · '+E(p.tools):''}</span><h3>${E(p.title)}</h3>${p.meta?`<div class="mt">${p.meta.map(m=>`<span>${E(m)}</span>`).join('')}</div>`:''}<p style="color:var(--mut)">${E(p.desc)}</p>${p.features?`<ul>${p.features.map(f=>`<li>${E(f)}</li>`).join('')}</ul>`:''}${p.link?`<a class="btn" href="${E(p.link)}" target="_blank" rel="noopener noreferrer">Play on itch.io</a>`:''}</div>${(p.gallery||[]).length>1?`<div class="gl">${p.gallery.slice(1).map(g=>`<img src="${I(g)}" alt="" loading="lazy">`).join('')}</div>`:''}`;
 $('md').classList.add('on');$('xx').onclick=()=>$('md').classList.remove('on')}
 $('tab').onclick=e=>{const b=e.target.closest('button');if(!b)return;[...$('tab').children].forEach(x=>x.classList.toggle('on',x==b));dp(b.dataset.c)};
 $('pj').onclick=e=>{const c=e.target.closest('.pj');if(c)open(c.dataset.i)};$('feat').onclick=e=>{const b=e.target.closest('[data-v]');if(b)open(b.dataset.v)};
